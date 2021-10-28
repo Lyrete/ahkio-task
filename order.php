@@ -11,6 +11,7 @@ class Order{
     public float $discount = 0;
     public float $discount_vat = 0;
     public $unique_products;
+    public int $product_amount = 0;
 
         /*
         * json is an array of orders with the following structure
@@ -49,6 +50,7 @@ class Order{
             $this->discount += $product->getDiscountTotal();
             $this->discount_vat += $product->getDiscountWithVat();
             $this->unique_products[] = $product->name;
+            $this->product_amount += $product->qty;
         }
     }
 }

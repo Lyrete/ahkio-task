@@ -20,26 +20,30 @@ $vat_total = 0;
 $discount_total = 0;
 $discount_with_vat_total = 0;
 $products = array();
+$product_amount = 0;
 
-//loop through orders
+//loop through orders and add values to totals
 foreach($json_data as $datapoint){
     $order = new Order($datapoint);
     $vat_total += $order->vat;
     $discount_total += $order->discount;
     $discount_with_vat_total += $order->discount_vat;
-    
-    //merge existing product array with the products in order
+    $product_amount += $order->product_amount;
+
+    //merge existing product array with the products in the order
     $products = array_merge($products, $order->unique_products);
+
 }
 
-//remove duplicates from array and get it's size
+//remove duplicates from the product array and get it's size
 $size = sizeof(array_unique($products));
 
 //echo a table for visuals
 echo "<table class='table'><tbody>";
 echo "<tr><td>Total VAT to be paid</td><td> {$vat_total} €</td> </tr>";
 echo "<tr><td>Total discount given</td><td> {$discount_total} € (VAT 0%), {$discount_with_vat_total} € (VAT included)</td>  </tr>";
-echo "<tr><td>Total amount of unique products</td><td> {$size}</td> </tr>";
+echo "<tr><td>Total amount of unique products in orders</td><td> {$size}</td> </tr>";
+echo "<tr><td>Total amount of ordered products</td><td> {$product_amount}</td> </tr>";
 echo "</tbody></table>";
 
 ?>
