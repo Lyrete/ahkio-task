@@ -27,8 +27,10 @@ $json_data = json_decode($data);
 *   [...,{
 *       id: int,
 *       vat_percentage: int,
+*       qty: int,
 *       unit_price_without_vat: int,
-*       product: string
+*       product: string,
+*       (discount_percentage: int)
 *   },...]
 *
 * with the lines array being any length
@@ -46,21 +48,22 @@ foreach($json_data as $datapoint){
     //loop through the lines array of an order
     foreach($datapoint->lines as $line){
 
-        //amount of vat paid for one product
+        //calculate vat paid for one product
         $vat = $line->unit_price_without_vat * ($line->vat_percentage/100);
         
         //add to total sum (times quantity of product)
         $vat_total += $vat * $line->qty;
 
+        //calculate discount without and with vat
         $discount = $line->unit_price_without_vat * ($line->discount_percentage/100);
         $discount_added_vat = $discount * (1 + $line->vat_percentage/100);
 
+        //add to discount totals (quantity taken into account)
         $discount_total += $discount * $line->qty;
         $discount_with_vat_total += $discount_added_vat * $line->qty;
 
-        //add product name to array
+        //add product name to array of products
         array_push($products, $line->product);
-
     }
 }
 
