@@ -15,6 +15,7 @@ include_once 'order.php';
 $data = file_get_contents("./sales_data.json");
 $json_data = json_decode($data);
 
+//init vars for echo usage
 $vat_total = 0;
 $discount_total = 0;
 $discount_no_vat_total = 0;
@@ -26,6 +27,8 @@ foreach($json_data as $datapoint){
     $vat_total += $order->vat;
     $discount_total += $order->discount;
     $discount_no_vat_total += $order->discount_vatfree;
+    
+    //merge existing product array with the products in order
     $products = array_merge($products, $order->unique_products);
 }
 
