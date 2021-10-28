@@ -32,7 +32,7 @@ class Product{
 
     //vat for one unit
     function getVat(){ 
-        return $this->vat_percentage/100 * $this->unit_price_without_vat; 
+        return $this->vat_percentage/100 * ($this->unit_price_without_vat - $this->getDiscount()); 
     }
 
     //vat for all units
@@ -42,17 +42,16 @@ class Product{
 
     //discount for one unit
     function getDiscount(){
-        return ($this->unit_price_without_vat + $this-> getVat()) * $this->discount_percentage / 100;
-    }
-
-    //vat free discount for all units
-    function getVatFreeDiscount(){
-        return $this->unit_price_without_vat * $this->discount_percentage / 100 * $this->qty;
+        return $this->unit_price_without_vat * $this->discount_percentage / 100;
     }
 
     //discount for all units
     function getDiscountTotal(){
         return $this->getDiscount() * $this->qty;
+    }
+
+    function getDiscountWithVat(){
+        return $this->getDiscountTotal() * (1+$this->vat_percentage/100);
     }
 }
 

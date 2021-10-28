@@ -9,7 +9,7 @@ class Order{
     public string $country;
     public float $vat = 0;
     public float $discount = 0;
-    public float $discount_vatfree = 0;
+    public float $discount_vat = 0;
     public $unique_products;
 
         /*
@@ -47,7 +47,7 @@ class Order{
             $product = new Product($x);
             $this->vat += $product->getVatTotal();
             $this->discount += $product->getDiscountTotal();
-            $this->discount_vatfree += $product->getVatFreeDiscount();
+            $this->discount_vat += $product->getDiscountWithVat();
             $this->unique_products[] = $product->name;
         }
     }
