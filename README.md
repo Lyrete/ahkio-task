@@ -1,1 +1,1 @@
-Running at [http://tommi.alajoki.fi/ahkio-task/](http://tommi.alajoki.fi/ahkio-task/)
+Programming task for recruitment purposes, running at [http://tommi.alajoki.fi/ahkio-task/](http://tommi.alajoki.fi/ahkio-task/)
